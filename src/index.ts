@@ -1,4 +1,6 @@
+import PlantsRouter from './routers/PlantsRouter'
 import express  from "express";
+
 import "reflect-metadata"
 import AppDataSource from "./data-source";
 
@@ -10,6 +12,7 @@ AppDataSource.initialize()
     const port = 3000;
     
       app.use(express.json());
+      app.use('/api/', PlantsRouter);
 
       app.listen(port, () => {
         console.log(
