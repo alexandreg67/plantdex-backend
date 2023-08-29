@@ -24,4 +24,21 @@ export class PlantsService {
 
         return this.plantsRepository.save(newPlant)
     }
+
+    async update(id:number, attributs:Partial<Plants>) {
+        const plantToUpdate = await this.getPlantById(id);
+        if (!plantToUpdate) {
+            return null;
+        }
+        Object.assign(plantToUpdate, attributs);
+        return this.plantsRepository.save(plantToUpdate);
+    }
+
+    async remove(id:number) {
+        const plantToDelete = await this.getPlantById(id);
+        if (!plantToDelete) {
+            return null;
+        }
+        return this.plantsRepository.remove(plantToDelete);
+    }
 }

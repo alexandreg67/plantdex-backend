@@ -25,4 +25,25 @@ export class PlantsController {
         const createdPlant = await this.plantsService.create(body.nom, body.soleil, body.arrosage, body.categorie, body.image);
         res.send({status: "OK", data: createdPlant});
     }
+
+    async update(req: Request, res: Response) {
+        const id = Number(req.params.id);
+        const body = req.body;
+        const updatePlant = await this.plantsService.update(id, body);
+        if (!updatePlant) {
+            res.status(404).send({status: "FAILED", message: `La plante avec l'id : ${id} n'a pas été trouvé`})
+            return;
+        };
+        res.send({status: "OK", data: updatePlant});
+    }
+
+    async delete(req: Request, res: Response) {
+        const id = Number(req.params.id);
+        const deletedPlant = await this.plantsService.remove(id);
+        if (!deletedPlant) {
+            res.status(404).send({status: "FAILED", message: `Le livre avec l'id : ${id} n'a pas été trouvé`})
+            return;
+        };
+        res.send({status: "OK", data: deletedPlant});
+    }
 }
