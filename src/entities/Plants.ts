@@ -19,6 +19,6 @@ export class Plants {
     categorie: string
 
     @Column()
-    image: string
+    image: string 
 
 }

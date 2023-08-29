@@ -19,4 +19,10 @@ export class PlantsController {
         };
         res.send({status: "OK", data: plant})
     }
+
+    async create(req: Request, res: Response) {
+        const body = req.body;
+        const createdPlant = await this.plantsService.create(body.nom, body.soleil, body.arrosage, body.categorie, body.image);
+        res.send({status: "OK", data: createdPlant});
+    }
 }
