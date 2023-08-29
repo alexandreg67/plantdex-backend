@@ -9,4 +9,10 @@ plantRouter.get('/', (req: Request, res: Response) => {
     plantController.getAllPlants(req, res);
 });
 
+plantRouter.get('/:id', (req, res) => {
+    plantController.getPlantById(req, res);
+});
+
+
+
 export default plantRouter
