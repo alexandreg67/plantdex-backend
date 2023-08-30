@@ -3,6 +3,8 @@ import express  from "express";
 
 import "reflect-metadata"
 import AppDataSource from "./data-source";
+import { UserController } from './controllers/UsersControllers';
+import userRouter from './routers/UsersRouter';
 
 
 AppDataSource.initialize()
@@ -12,7 +14,8 @@ AppDataSource.initialize()
     const port = 3000;
     
       app.use(express.json());
-      app.use('/api/', PlantsRouter);
+      app.use('/plants', PlantsRouter);
+      app.use('/users', userRouter)
 
       app.listen(port, () => {
         console.log(
