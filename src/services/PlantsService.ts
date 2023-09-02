@@ -13,13 +13,13 @@ export class PlantsService {
         return this.plantsRepository.findOneBy({id: idValue});
     }
 
-    create(newName: string, newSun: string, newArrosage: number, newCat: string, newPicture: string) {
+    create(newName: string, newSun: string, newArrosage: number, newPicture: string, newCat: string) {
         const newPlant = this.plantsRepository.create({
             nom: newName,
             soleil: newSun,
             arrosage: newArrosage,
-            categorie: newCat,
-            image: newPicture
+            image: newPicture,
+            categorie: newCat
         });
 
         return this.plantsRepository.save(newPlant)

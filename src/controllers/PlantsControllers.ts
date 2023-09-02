@@ -22,13 +22,15 @@ export class PlantsController {
 
     async create(req: Request, res: Response) {
         const body = req.body;
-        const createdPlant = await this.plantsService.create(body.nom, body.soleil, body.arrosage, body.categorie, body.image);
+        const createdPlant = await this.plantsService.create(body.nom, body.soleil, body.arrosage,body.image, body.categorie);
         res.send({status: "OK", data: createdPlant});
     }
 
     async update(req: Request, res: Response) {
         const id = Number(req.params.id);
         const body = req.body;
+        console.log("mon body dans le update : ", body);
+        
         const updatePlant = await this.plantsService.update(id, body);
         if (!updatePlant) {
             res.status(404).send({status: "FAILED", message: `La plante avec l'id : ${id} n'a pas été trouvé`})
