@@ -13,4 +13,8 @@ favorisRouter.get('/:userId', (req: Request, res: Response) => {
     favorisController.getFavoritesForUser(req, res);
 });
 
+favorisRouter.delete('/:userId/:plantId', (req: Request, res: Response) => {
+    favorisController.deleteFavoris(req, res);
+});
+
 export default favorisRouter;

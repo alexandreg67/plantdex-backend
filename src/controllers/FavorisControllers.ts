@@ -38,4 +38,21 @@ export class FavorisController {
             return res.status(500).send({ message: 'Internal server error' });
         }
     }
+    
+    async deleteFavoris(req: Request, res: Response) { // Supprime un favoris
+        const idUser = Number(req.params.userId);
+        const idPlant = Number(req.params.plantId);
+
+        const deletedFavoris = await this.favorisServ.deleteFavoris(idUser, idPlant); // Suppression du favoris dans la base de données
+
+        if (!deletedFavoris) {
+            res.status(500).send({status: "FAILED", messsage: "Oups !"}); // Si une erreur survient
+            return;
+        } else {
+            res.status(200).send({status: "OK", data: deletedFavoris}); // Renvoie le favoris supprimé
+        }
+    }
 }
+
+
+
