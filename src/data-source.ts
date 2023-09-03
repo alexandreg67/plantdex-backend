@@ -2,6 +2,7 @@ import { DataSource } from "typeorm";
 import dotenv from "dotenv"
 import { Plants } from "./entities/Plants";
 import { Users } from "./entities/Users";
+import { Favoris } from "./entities/favoris";
 
 
 dotenv.config({path: '.env.local'});
@@ -15,7 +16,7 @@ const AppDataSource = new DataSource({
     database: process.env.DB_NAME,
     synchronize: false,
     logging: true,
-    entities: [Plants, Users],
+    entities: [Plants, Users, Favoris],
     subscribers: [],
     migrations: [],
 });

@@ -3,8 +3,9 @@ import express  from "express";
 
 import "reflect-metadata"
 import AppDataSource from "./data-source";
-import { UserController } from './controllers/UsersControllers';
 import userRouter from './routers/UsersRouter';
+import favorisRouter from './routers/FavorisRouter';
+import plantRouter from './routers/PlantsRouter';
 
 
 AppDataSource.initialize() // Connexion à la base de données
@@ -18,8 +19,10 @@ AppDataSource.initialize() // Connexion à la base de données
 
       app.use(cors()); // Utilisation de cors
       app.use(express.json()); // Utilisation de express.json()
-      app.use('/api/plants', PlantsRouter); // Utilisation du routeur pour les plantes
+      app.use('/api/plants', plantRouter); // Utilisation du routeur pour les plantes
       app.use('/api/users', userRouter) // Utilisation du routeur pour les utilisateurs
+      app.use('/api/favoris', favorisRouter) // Utilisation du routeur pour les favoris
+      
 
       app.listen(port, () => { // Démarrage du serveur
         console.log(

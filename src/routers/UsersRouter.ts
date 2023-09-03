@@ -19,4 +19,8 @@ userRouter.post('/checktoken', (req: Request, res: Response) => { // Vérifie la
     userController.checkToken(req, res) // Appel de la méthode checkToken du controller
 });
 
+userRouter.get('/getIdUser', (req: Request, res: Response) => { // Récupère les informations d'un utilisateur
+    userController.getIdUser(req, res) // Appel de la méthode getIdUser du controller
+});
+
 export default userRouter

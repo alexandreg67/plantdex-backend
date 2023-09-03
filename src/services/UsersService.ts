@@ -2,10 +2,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import AppDataSource from "../data-source";
 import { Users } from "../entities/Users";
-import { log } from "console";
 
 export class UsersService {
-    private usersRepository = AppDataSource.getRepository(Users);
+    private usersRepository = AppDataSource.getRepository(Users); // Récupère le repository de la table Users
 
 
     async signup(name: string, firstname: string, email: string, password: string) { // Inscription d'un utilisateur
@@ -67,4 +66,21 @@ export class UsersService {
             }
         });
     }    
+
+    async getIdUser(token: string) { // Récupère les informations d'un utilisateur
+        try {
+            const decodedToken = jwt.verify(token, process.env.PRIVATEKEY_TOKEN); // Vérifie le token
+            console.log("je suis dans le try du getIdUser : ", decodedToken);
+            
+            if (decodedToken && decodedToken.sub) {
+                return decodedToken.sub; // Renvoie l'id de l'utilisateur
+            } else {
+                return null; 
+            }
+        } catch (error) {
+            console.error("Erreur dans le getIdUser : ", error)
+            return null;
+        }
+    }
+
 }

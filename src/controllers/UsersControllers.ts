@@ -1,6 +1,5 @@
 import { Response, Request } from "express";
 import { UsersService } from "../services/UsersService";
-import { log } from "console";
 
 export class UserController {
     private userServ = new UsersService();
@@ -63,5 +62,27 @@ export class UserController {
             }
         }
 
+    }
+
+    async getIdUser(req: Request, res:Response) { // Récupère les informations d'un utilisateur
+        const token = req.headers['authorization']?.split(' ')[1];
+        console.log("je suis dans getIdUser de user controller et je récupère token : ", token);
+        
+        if (!token) {// Si le token est manquant
+            console.log("je suis dans getIdUser de user controller et le token est manquant");
+            return res.status(401).send({ message: 'Token is missing!'});  // Non autorisé
+        }
+
+        try {
+            const idUser = await this.userServ.getIdUser(token);
+            if(idUser) {
+                return res.json({ id: idUser }); // Renvoie l'id de l'utilisateur
+            } else {
+                return res.status(403).send({ message: 'Failed to retrieve user ID or Token is invalid!'}); // L'id de l'utilisateur n'a pas été trouvé
+            }
+        } catch (error) {
+            console.error("Error in getIdUser : ", error);
+            return res.status(500).send({ message: 'Server error!'});
+        }
     }
 }
