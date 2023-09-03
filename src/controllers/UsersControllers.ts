@@ -48,20 +48,20 @@ export class UserController {
             return res.status(401).send({ message: 'Token is missing!', isValid: false });  // Non autorisé
         }
 
-        const isValidToken = await this.userServ.checkToken(token).catch(error => {
+        try {
+            const isValidToken = await this.userServ.checkToken(token);
+            if(isValidToken) {
+                return res.json({ message: 'Token is valid!', isValid: true }); // Le token est valide
+            }
+        } catch (error) {
             if (error === 'Token has expired') { // Si le token a expiré
                 console.log("je suis dans le catch checkToken de user controller et le token a expiré");
-                return res.status(401).send({ message: 'Token has expired!', isValid: false }); 
+                return res.status(401).send({ message: 'Token has expired!', isValid: false }); // Non autorisé
             } else {
                 console.log("je suis dans le catch checkToken de user controller et le token est invalide");
-                return res.status(403).send({ message: 'Token is invalid!', isValid: false });
+                return res.status(403).send({ message: 'Token is invalid!', isValid: false }); // Non autorisé
             }
-        });
-
-        if (!isValidToken) { // Si le token n'est pas valide
-            log("je suis dans checkToken de user controller et le token n'est pas valide");
-            return;  // Fin de la fonction, car une réponse a déjà été envoyée
         }
-        res.json({ message: 'Token is valid!', isValid: true }); // Le token est valide
+
     }
 }

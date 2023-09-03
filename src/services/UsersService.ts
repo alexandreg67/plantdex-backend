@@ -55,16 +55,16 @@ export class UsersService {
         
         return new Promise((resolve, reject) => { // Crée une promesse
             try {
-                jwt.verify(token, process.env.PRIVATEKEY_TOKEN);
+                jwt.verify(token, process.env.PRIVATEKEY_TOKEN); // Vérifie le token
                 console.log("je suis dans le try du checkToken : et le token est valide");
                 resolve(true);  // Le token est valide
             } catch (error) {
-                if (error instanceof jwt.TokenExpiredError) {
+                if (error instanceof jwt.TokenExpiredError) {// Si le token a expiré
                     reject('Token has expired');  // Le token a expiré
                 } else {
                     reject('Token is invalid');  // Le token est invalide pour une autre raison
                 }
             }
-            });
+        });
     }    
 }
