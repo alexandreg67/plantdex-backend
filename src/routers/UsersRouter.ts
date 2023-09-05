@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import { UserController } from "../controllers/UsersControllers";
+import checkToken from "../middlewares/CkeckToken";
 
 
 const userRouter = Router(); // Création du routeur

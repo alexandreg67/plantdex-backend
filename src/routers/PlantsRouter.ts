@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import { PlantsController } from "../controllers/PlantsControllers";
+import checkToken from "../middlewares/CkeckToken";
 
 
 const plantRouter = Router();
@@ -13,15 +14,15 @@ plantRouter.get('/:id', (req: Request, res: Response) => {
     plantController.getPlantById(req, res);
 });
 
-plantRouter.post('/', (req: Request, res: Response) => {
+plantRouter.post('/',checkToken, (req: Request, res: Response) => {
     plantController.create(req, res)
 });
 
-plantRouter.put('/:id', (req: Request, res: Response) => {
+plantRouter.put('/:id',checkToken, (req: Request, res: Response) => {
     plantController.update(req, res);
 })
 
-plantRouter.delete('/:id', (req, res) => {
+plantRouter.delete('/:id',checkToken, (req, res) => {
     plantController.delete(req, res);
 })
 

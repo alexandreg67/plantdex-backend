@@ -64,6 +64,7 @@ export class UsersService {
                     reject('Token is invalid');  // Le token est invalide pour une autre raison
                 }
             }
+
         });
     }    
 
